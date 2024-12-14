@@ -191,62 +191,78 @@ setTimeout(() => {
             content.style.top = "140px";
             counter.classList.add('active');
         }, 5000);
-       import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js';
-import { getDatabase, ref, set, get, onValue, remove, runTransaction } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js';
+      
 
-const firebaseConfig = {
-    apiKey: "AIzaSyC2xsSef93dq_pL-7xSMAnLgJsAaNZnekM",
-    authDomain: "birthday-fe-d0c65.firebaseapp.com",
-    databaseURL: "https://birthday-fe-d0c65-default-rtdb.firebaseio.com",
-    projectId: "birthday-fe-d0c65",
-    storageBucket: "birthday-fe-d0c65.firebasestorage.app",
-    messagingSenderId: "35853400549",
-    appId: "1:35853400549:web:d0caf6c77a4b15b83d970c"
-};
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js';
+  import { getDatabase, ref, set, get, onValue, runTransaction, update } from 'https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js';
 
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+  const firebaseConfig = {
+      apiKey: "AIzaSyC2xsSef93dq_pL-7xSMAnLgJsAaNZnekM",
+      authDomain: "birthday-fe-d0c65.firebaseapp.com",
+      databaseURL: "https://birthday-fe-d0c65-default-rtdb.firebaseio.com",
+      projectId: "birthday-fe-d0c65",
+      storageBucket: "birthday-fe-d0c65.firebasestorage.app",
+      messagingSenderId: "35853400549",
+      appId: "1:35853400549:web:d0caf6c77a4b15b83d970c"
+  };
 
-let sessionId = sessionStorage.getItem('sessionId');
-if (!sessionId) {
-    sessionId = new Date().getTime(); // Cria um sessionId único
-    sessionStorage.setItem('sessionId', sessionId);
-}
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
 
-// Função para atualizar a contagem de visualizações usando `runTransaction` ao invés de `transaction`
-function updateViewCount() {
-    const viewCountRef = ref(database, 'viewCount');
-    runTransaction(viewCountRef, (currentValue) => {
-        return (currentValue || 0) + 1;
-    });
+  let sessionId = sessionStorage.getItem('sessionId');
+  if (!sessionId) {
+      sessionId = new Date().getTime(); // Cria um sessionId único
+      sessionStorage.setItem('sessionId', sessionId);
+  }
 
-    set(ref(database, 'sessions/' + sessionId), {
-        sessionId: sessionId,
-        timestamp: new Date().toISOString()
-    });
+  // Função para verificar e atualizar a contagem de visualizações de forma segura
+  function updateViewCount() {
+      const viewCountRef = ref(database, 'viewCount');
+      const sessionRef = ref(database, 'sessions/' + sessionId);
 
-    onValue(viewCountRef, (snapshot) => {
-        document.getElementById('viewCount').textContent = snapshot.val() || 0;
-    });
-}
+      // Verifica se já existe um valor de visualização para a sessão, se sim, não atualiza
+      get(viewCountRef).then(snapshot => {
+          if (!snapshot.exists()) {
+              // Se a visualização não existir, inicialize
+              set(viewCountRef, 1); // Inicia a contagem no banco de dados
+          } else {
+              // Se já existe, não faz nada ou pode atualizar o valor de uma forma mais controlada
+              onValue(viewCountRef, (snapshot) => {
+                  document.getElementById('viewCount').textContent = snapshot.val() || 0;
+              });
+          }
+      });
 
-function decrementViewCount() {
-    const viewCountRef = ref(database, 'viewCount');
-    const sessionRef = ref(database, 'sessions/' + sessionId);
-    
-    remove(sessionRef); // Remove a sessão ao sair
-    runTransaction(viewCountRef, (currentValue) => {
-        return (currentValue || 0) - 1;
-    });
-}
+      // Registra a sessão
+      set(sessionRef, {
+          sessionId: sessionId,
+          timestamp: new Date().toISOString()
+      });
+  }
 
-window.onload = () => {
-    updateViewCount();
-};
+  function decrementViewCount() {
+      const viewCountRef = ref(database, 'viewCount');
+      const sessionRef = ref(database, 'sessions/' + sessionId);
+  
+      remove(sessionRef); // Remove a sessão ao sair
+      // Aqui você pode também diminuir o view count, ou manter o mesmo
+      runTransaction(viewCountRef, (currentValue) => {
+          if (currentValue > 0) {
+              return (currentValue || 0) - 1; // Decrementa a visualização
+          } else {
+              return currentValue; // Evita que a visualização caia para número negativo
+          }
+      });
+  }
 
-window.onbeforeunload = () => {
-    decrementViewCount();
-};
+  window.onload = () => {
+      updateViewCount();
+  };
+
+  window.onbeforeunload = () => {
+      decrementViewCount();
+  };
+
 
 
         // Contagem regressiva
