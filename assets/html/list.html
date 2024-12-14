@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.css">
+    <title>FG - APP</title>
+</head>
+<body>
+    <header>
+        <img src="../img/FeLogo(2).png">
+        <h1>Fernanda Gonzalez</h1>
+    </header>
+
+    <section>
+        <p id="title">
+            <span id="txt">Lista de Chamada</span>
+            <span id="icon"><i class="ri-list-check-3"></i></span>
+        </p>
+        <div class="checklist">
+            <ul>
+                <li>
+                    <input type="checkbox" id="item1">
+                    <label for="item1">Bernardo Gonzalez da Silva</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="item2">
+                    <label for="item2">Eloize Frances dos Santos</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="item3">
+                    <label for="item3">Fernanda Gonzalez da Silva</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="item4">
+                    <label for="item4">Guilherme Fernando da Silva</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="item5">
+                    <label for="item5">Isabella Cristina Gonzalez</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="item6">
+                    <label for="item6">Jessica Klippel Cruz</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="item7">
+                    <label for="item7">Janaína Nunes</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="item8">
+                    <label for="item8">João Pedro dos Santos Lima</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="item9">
+                    <label for="item9">Renan Klippel Cruz</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="item10">
+                    <label for="item10">Wilson de Sousa Lima</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="item11">
+                    <label for="item11">Wilker de Souza Lima</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="item12">
+                    <label for="item12">Nathalia Souza Rodrigues</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="item13">
+                    <label for="item13">Otávio Nunes Lima</label>
+                </li>
+            </ul>                     
+            <button onclick="enviarLista()">Enviar Checklist</button>
+        </div>
+    </section>
+
+    <footer>
+        <span>&copy; 2025 - Todos os direitos reservados.</span>
+        <p>App feito com carinho para este dia especial.</p>
+    </footer>
+
+    <div class="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        function openLoading() {
+            const loading = document.querySelector('.loading');
+            loading.style.display = "flex"
+        }
+
+        function closeLoading() {
+            const loading = document.querySelector('.loading');
+            loading.style.display = "none"
+        }
+
+        function enviarLista() {
+            openLoading()
+            setTimeout(() => {
+                window.location.reload()
+                closeLoading()
+            }, 6000);
+        }
+    </script>
+</body>
+</html>

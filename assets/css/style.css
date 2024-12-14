@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        body {
+            background-color: #faf8f1;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #313926;
+            box-shadow: 0 0 15px #00000346;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #faf8f1;
+            margin-bottom: 40px;
+        }
+
+        header img {
+            width: 60px;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+
+        section {
+            box-shadow: 0 0 15px #00000346;
+            background-color: #313926;
+            border: .23rem solid #4b563b;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+        }
+
+        section p#title {
+            color: #faf8f1;
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        section p#title span#icon {
+            font-size: 1.5rem;
+        }
+
+        .checklist {
+            color: #faf8f1;
+            border-radius: 10px;
+            width: 100%;
+        }
+        
+        .checklist ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .checklist li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .checklist label {
+            font-size: 1.1rem;
+            color: #faf8f1;
+            cursor: pointer;
+        }
+        
+        .checklist input[type="checkbox"] {
+            display: none;
+        }
+        
+        .checklist input[type="checkbox"] + label {
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+        }
+        
+        .checklist input[type="checkbox"] + label:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            border: 2px solid #4b563b;
+            border-radius: 4px;
+            background-color: #313926;
+        }
+        
+        .checklist input[type="checkbox"]:checked + label:before {
+            background-color: #4b563b;
+            border-color: #4b563b;
+            content: "\2713"; /* Aqui o código Unicode correto para o ícone de check */
+            text-align: center;
+            font-size: .9rem; /* Ajusta o tamanho do ícone */
+            color: #faf8f1; /* Ajusta a cor do ícone */
+        }
+        
+        .checklist button {
+            background-color: #4b563b;
+            color: #faf8f1;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: .5s ease-in-out;
+        }
+        
+        .checklist button:hover {
+            box-shadow: 0 0 30px #4b563b;
+        }
+
+        footer { 
+            background-color: #313926;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            gap: .3rem;
+            color: #faf8f1;
+        }
+
+        footer p {
+            font-size: .9rem;
+            font-weight: 300;
+            opacity: .7;
+        }
+
+        .spinner {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 9px solid #4f5a3f;
+            animation: spinner-bulqg1 0.8s infinite linear alternate,
+                 spinner-oaa3wk 1.6s infinite linear;
+         }
+         
+         @keyframes spinner-bulqg1 {
+            0% {
+               clip-path: polygon(50% 50%, 0 0, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);
+            }
+         
+            12.5% {
+               clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 0%, 100% 0%, 100% 0%);
+            }
+         
+            25% {
+               clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 100%, 100% 100%, 100% 100%);
+            }
+         
+            50% {
+               clip-path: polygon(50% 50%, 0 0, 50% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%);
+            }
+         
+            62.5% {
+               clip-path: polygon(50% 50%, 100% 0, 100% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%);
+            }
+         
+            75% {
+               clip-path: polygon(50% 50%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 50% 100%, 0% 100%);
+            }
+         
+            100% {
+               clip-path: polygon(50% 50%, 50% 100%, 50% 100%, 50% 100%, 50% 100%, 50% 100%, 0% 100%);
+            }
+         }
+         
+         @keyframes spinner-oaa3wk {
+            0% {
+               transform: scaleY(1) rotate(0deg);
+            }
+         
+            49.99% {
+               transform: scaleY(1) rotate(135deg);
+            }
+         
+            50% {
+               transform: scaleY(-1) rotate(0deg);
+            }
+         
+            100% {
+               transform: scaleY(-1) rotate(-135deg);
+            }
+         }
+         
+         .loading {
+             position: fixed;
+             top: 0;
+             left: 0;
+             background-color: #00000348;
+             width: 100%;
+             height: 100vh;
+             justify-content: center;
+             align-items: center;
+             display: none;
+             backdrop-filter: blur(10px);
+             z-index: 99;
+         }
